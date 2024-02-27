@@ -11,15 +11,15 @@ export class NotificationService {
   constructor(private snackBar: MatSnackBar) { }
 
   async showSuccess(message: string): Promise<void> {
-    const snackBarRef = this.snackBar.open(message, 'Succès', {
-      duration: 2000,
+    const snackBarRef = this.snackBar.open(message, 'OK !', {
+      duration: 4000,
     });
     await snackBarRef.afterDismissed().toPromise();
   }
 
   async showError(message: string): Promise<void> {
-    const snackBarRef = this.snackBar.open(message, 'Erreur', {
-      duration: 2000,
+    const snackBarRef = this.snackBar.open(message, 'Mince..', {
+      duration: 4000,
       panelClass: ['error-snackbar']
     });
     await snackBarRef.afterDismissed().toPromise();
