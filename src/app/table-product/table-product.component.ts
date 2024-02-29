@@ -5,6 +5,7 @@ import {MatSort, Sort, MatSortModule} from "@angular/material/sort";
 import {CommonModule} from "@angular/common";
 import {AccueilService} from "../accueil.service";
 import {async} from "rxjs";
+import {MatPaginatorModule, MatPaginator} from "@angular/material/paginator";
 
 export interface Product{
   id: number;
@@ -18,7 +19,7 @@ export interface Product{
   templateUrl: './table-product.component.html',
   styleUrls: ['./table-product.component.scss'],
   standalone: true,
-  imports: [MatTableModule, MatSortModule, CommonModule],
+  imports: [MatTableModule, MatSortModule, CommonModule, MatPaginatorModule],
 })
 export class TableProductComponent implements AfterViewInit , OnInit, OnChanges{
   @Input() data: Product[] = [];
@@ -28,8 +29,10 @@ export class TableProductComponent implements AfterViewInit , OnInit, OnChanges{
   constructor(private _liveAnnouncer: LiveAnnouncer, private homeService : AccueilService) {}
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngOnInit() {
     this.dataSource.data = this.data;
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -41,6 +44,7 @@ export class TableProductComponent implements AfterViewInit , OnInit, OnChanges{
   ngAfterViewInit() {
 
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
 
