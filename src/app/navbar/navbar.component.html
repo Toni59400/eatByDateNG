@@ -1,9 +1,9 @@
 <p class="no-border">
-  <mat-toolbar>
+  <mat-toolbar class="navbar">
     <div class="flex-navbar">
-      <div><a href="/" id="logo">EatByDate</a></div>
+      <div><a routerLink="/" id="logo"><b>EatByDate</b></a></div>
       <div *ngIf="jwt"><a href="/accueil" id="stock">Mes réserves</a></div>
-      <div><a (click)="logF()" id="{{messCSS}}">{{mess}}</a></div>
+      <div><a routerLink="/login" (click)="logF()" id="{{messCSS}}">{{mess}}</a></div>
     </div>
   </mat-toolbar>
 </p>

@@ -14,10 +14,10 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthServiceService, private router: Router, private notif : NotificationService) {}
 
   canActivate() {
-    if (this.authService.isLoggedIn$) {
+    if (localStorage.getItem("jwt") != null) {
       return true;
     } else {
-      //this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/login');
       return false;
     }
   }

@@ -5,36 +5,48 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {AuthServiceService} from "../auth-service.service";
 import {NotificationService} from "../notification.service";
+import {Router} from "@angular/router";
+import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
 
 })
 export class LoginComponent {
   hide = true;
+  email: FormControl<string | null> = new FormControl('', [Validators.required, Validators.email]);
 
-  constructor(private authService: AuthServiceService, private notificationService: NotificationService) { }
+  constructor(private authService: AuthServiceService, private notificationService: NotificationService, private router:Router) {
+  }
 
-  async onLoginSubmit(username: string, password: string, event: Event) {
+  onLoginSubmit(password: string, event: Event) {
     event.preventDefault();
     try {
-      await this.authService.login(username, password);
-      const jwtToken = localStorage.getItem('jwt');
-      if (jwtToken) {
-        await this.notificationService.showSuccess("Vous êtes connecté !")
-        console.log('Connexion réussie !');
-        console.log(localStorage)
-      } else {
-        await this.notificationService.showError("Erreur de connexion")
-        console.error('La connexion a échoué.');
-      }
+      this.authService.login(this.email.getRawValue()!, password).then(async ({ data }) => {
+        localStorage.setItem("jwt", data.jwt);
+        await this.notificationService.showSuccess("Vous êtes connecté !");
+        this.router.navigateByUrl('/accueil')
+        return data;
+      }).catch(async error => {
+        await this.notificationService.showError("Erreur de connexion");
+        console.error(error);
+        return error;
+      });
     } catch (error) {
-      await this.notificationService.showError("Erreur de connexion")
-      console.error('Erreur lors de la connexion :', error);
-      console.log(localStorage)
+      console.error(error);
     }
   }
+
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
 }
+
+

@@ -1,7 +1,14 @@
-<form class="login-form" (submit)="onLoginSubmit(username.value, password.value, $event)">
+<form class="login-form" (submit)="onLoginSubmit(password.value, $event)">
+  <h2>Connectez-vous</h2>
+  <div class="example-container">
   <mat-form-field>
-    <input #username matInput placeholder="Nom d'utilisateur">
+    <mat-label>Enter your email</mat-label>
+    <input matInput placeholder="pat@example.com" [formControl]="email" required>
+    <mat-error *ngIf="email.hasError('email')">
+      email.hasError('email')
+    </mat-error>
   </mat-form-field>
+  </div>
 
   <mat-form-field>
     <mat-label>Mot de passe</mat-label>
@@ -11,6 +18,8 @@
     </button>
   </mat-form-field>
 
-  <button mat-raised-button color="primary">Se connecter</button>
+  <div><button mat-raised-button color="primary">Se connecter</button></div>
+  <div class="register"><a href="/register" id="register">S'inscrire</a></div>
 </form>
+
 

@@ -13,12 +13,23 @@ import {MatButtonModule} from "@angular/material/button";
 import {HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
+import { RegisterComponent } from './register/register.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatSelectModule} from "@angular/material/select";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import { TableProductComponent } from './table-product/table-product.component';
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -30,9 +41,19 @@ import { HomeComponent } from './home/home.component';
     MatButtonModule,
     LoginComponent,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule,
+    RegisterComponent,
+    MatProgressBarModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatSortModule,
+    MatTableModule,
+    TableProductComponent,
   ],
   providers: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

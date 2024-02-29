@@ -1,1 +1,14 @@
-<p>home works!</p>
+<div>
+<p>Bonjour {{nameUser}} !</p>
+<mat-form-field>
+  <mat-label *ngIf="isReeadyStock">Reserve :</mat-label>
+  <mat-select *ngIf="isReeadyStock" >
+    <mat-option *ngFor="let reserve of reserves" [value]="reserve.id" (click)="fetchProductOfReserve(reserve.id)">
+      {{ reserve.reserveNom }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-progress-bar *ngIf="!isReady" mode="indeterminate"></mat-progress-bar>
+
+<app-table-product [data]="products" *ngIf="isReady"></app-table-product>
+</div>

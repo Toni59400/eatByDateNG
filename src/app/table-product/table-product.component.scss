@@ -1,0 +1,27 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.expired {
+  background-color: #fa1717; /* Couleur pour les produits expirés */
+}
+
+.urgent{
+  background-color: #ff4b4b;
+}
+
+.near-expiration {
+  background-color: #de9696; /* Couleur pour les produits proches de l'expiration */
+}
+
+.warning {
+  background-color: #eec1c1; /* Couleur pour les produits proches de l'expiration */
+}
+
+.normal {
+  background-color: #FFFFFF; /* Couleur normale pour les autres produits */
+}
