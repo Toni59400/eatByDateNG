@@ -22,6 +22,24 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import { TableProductComponent } from './table-product/table-product.component';
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
+import {MatDialogModule} from "@angular/material/dialog";
+import { AjoutFormComponent } from './ajout-form/ajout-form.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+
+
+const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -29,6 +47,7 @@ import {MatTableModule} from "@angular/material/table";
     NavbarComponent,
     HomeComponent,
     FooterComponent,
+    AjoutFormComponent,
 
   ],
   imports: [
@@ -50,8 +69,14 @@ import {MatTableModule} from "@angular/material/table";
     MatSortModule,
     MatTableModule,
     TableProductComponent,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
   exports: [
   ],
   bootstrap: [AppComponent]

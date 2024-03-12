@@ -1,8 +1,13 @@
+<div class="spinner"><mat-spinner *ngIf="!finish"></mat-spinner></div>
+<div class="example-button-container margin">
+  <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="openAjoutFormDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
 <div class="mat-elevation-z8">
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
        class="mat-elevation-z8">
 
-  <!-- Position Column -->
   <ng-container matColumnDef="apiId">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
       Code Barre
@@ -14,27 +19,48 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
       Nom
     </th>
-    <td mat-cell *matCellDef="let element"> {{element.product_name}} </td>
+    <td mat-cell *matCellDef="let element">
+      <a href="{{element.imgUrl}}" target="_blank" style="text-decoration: none; color: inherit;">{{element.product_name}}</a>
+    </td>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="expirationDate">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
       DLC
     </th>
-    <td mat-cell *matCellDef="let element"> {{getDayBeforeEnd(element.expirationDate)}} </td>
+    <td mat-cell *matCellDef="let element"><div class="flex-add-remove">
+      <span class="circle {{getRowColor(getDayBeforeEnd(element.expirationDate))}}"></span>
+      <div>{{getDayBeforeEnd(element.expirationDate)}}</div>
+    </div>
+    </td>
   </ng-container>
 
-  <!-- Weight Column -->
   <ng-container matColumnDef="quantite">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
       Quantite
     </th>
-    <td mat-cell *matCellDef="let element"> {{element.quantite}} </td>
+    <td mat-cell *matCellDef="let element" class="td-flex">
+      <div class="flex-add-remove"><button mat-icon-button (click)="decrementQuantity(element)">
+        <mat-icon class="custom-icon-size">remove</mat-icon>
+      </button>
+        {{element.quantite}}
+        <button mat-icon-button (click)="incrementQuantity(element)">
+          <mat-icon class="custom-icon-size">add</mat-icon>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+      Action
+    </th>
+    <td mat-cell *matCellDef="let element"><button mat-icon-button (click)="deleteProduct(element)">
+      <mat-icon class="custom-icon-size">delete</mat-icon>
+    </button></td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="{{getRowColor(getDayBeforeEnd(row.expirationDate))}}"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" class=""></tr>
 </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                  [showFirstLastButtons]="true"

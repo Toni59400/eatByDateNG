@@ -4,9 +4,20 @@ import {AccueilService} from "../accueil.service";
 import {MatTableDataSource} from "@angular/material/table";
 
 
+export interface ReserveType{
+  id:number;
+  name:string;
+}
+
+export interface Reserve{
+  id:number;
+  ReserveNom: string;
+  reserveType: ReserveType;
+}
+
 export interface Product{
   id: number;
-  reserve: any[];
+  reserve: Reserve;
   apiId: string;
   expirationDate: string;
   quantite: number;
@@ -54,11 +65,15 @@ export class HomeComponent implements OnInit{
     }
 
     fetchProductOfReserve(idReserve: number){
+    localStorage.setItem("reserve", idReserve.toString())
+
       this.accueilService.getProductOfReserve(idReserve).then(async ({data}) =>{
         this.products = data
+
         for (const product of data) {
           const genericName = await this.accueilService.getProductName(product.apiId);
           product.product_name = genericName.data.product_name;
+          product.imgUrl = genericName.data.imageUrl;
           console.log(genericName)
         }
 

@@ -1,0 +1,14 @@
+<form [formGroup]="ajoutForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput placeholder="Code Barre" formControlName="codeBarre">
+  </mat-form-field>
+  <mat-form-field class="date">
+    <input matInput type="text" placeholder="DLC" formControlName="dlc" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Quantité" formControlName="quantity" min="1">
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Ajouter</button>
+</form>

@@ -35,16 +35,6 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(['/login'])
       localStorage.removeItem("jwt")
       this.jwt = null;
-    } else {
-      this.router.events.subscribe((val: any) => {
-        if(val.url) {
-          if(val.url.includes("login") ){
-            this.router.navigate(['/register'])
-          }else{
-            this.router.navigate(['/login'])
-          }
-        }
-      });
     }
   }
 }
